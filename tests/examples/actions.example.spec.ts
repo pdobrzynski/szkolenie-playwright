@@ -5,3 +5,10 @@ test('actions', async ({page}) => {
     await page.getByRole('button', {name: 'Start'}).click()
     await expect(page.locator('#finish')).toBeVisible()
 })
+
+
+type AriaAttributesSupported = 'selected'|'hidden'|'disabled'
+
+    async expectToHaveAriaAttributeValue (locator: Locator, label: AriaAttributesSupported, value: string) {
+        return await expect(locator).toHaveAttribute(`aria-${label}`, value);
+      }
