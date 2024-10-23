@@ -19,6 +19,10 @@ test('wait for resposne', async ({page}) => {
     await clickAndWait(page.locator(''), '/slow', 503)
 })
 
+test('wait for load state', async ({page}) => {
+    await page.waitForLoadState('')
+})
+
 test('wait for url', async ({page}) => {
     await page.goto('https://the-internet.herokuapp.com/redirector')
     await page.locator('#redirect').click()
