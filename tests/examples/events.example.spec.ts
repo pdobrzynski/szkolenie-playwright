@@ -7,6 +7,16 @@ test('wait for resposne', async ({page}) => {
       );
     await page.goto('https://the-internet.herokuapp.com/slow')
     await responsePromise;
+
+    const clickAndWait = async (locator: Locator, url: string, statusCode: number) => {
+        const response = await Promise.all([
+            page.waitForResponse(resp => resp.url().includes(url)
+            && resp.status() === statusCode),
+            locator.click()
+        ]);
+        return response
+    }
+    await clickAndWait(page.locator(''), '/slow', 503)
 })
 
 test('wait for url', async ({page}) => {
