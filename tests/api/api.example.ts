@@ -23,7 +23,19 @@ let apiContext: APIRequestContext
 let token: string;
 
 test.beforeAll(async ({}) => {
-    apiContext = await request.newContext()
+    const tempContext = await request.newContext();
+  const response = await tempContext.post('https://thinking-tester-contact-list.herokuapp.com/users/login', {
+    data: body
+}) 
+  const responseBody = await response.json()
+  token = 'Bearer ' + responseBody.token
+  await tempContext.dispose();
+
+  apiContext = await request.newContext({
+    extraHTTPHeaders: {
+      Authorization: token
+    }
+  })
     const response = await apiContext.post('https://thinking-tester-contact-list.herokuapp.com/users/login', {
         data: body
     }) 
