@@ -77,6 +77,7 @@ test('login API', async ({}) => {
 //test.use({storageState: 'storageState.json'})
 test('logged in', async ({page}) => {
     // await page.goto('https://the-internet.herokuapp.com/secure')
+    // await expect(page.locator('.subheader')).toHaveText('Welcome to the Secure Area. When you are done click logout below.')
     // await page.waitForTimeout(5000)
 
     // await page.goto('https://the-internet.herokuapp.com/login')
