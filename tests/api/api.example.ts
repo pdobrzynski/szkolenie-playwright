@@ -55,6 +55,14 @@ test('Login API', async ({page}) => {
 })
 
 test('Mocking', async ({ page }) => {
+  /*
+  route.abort - abort request (opcjonalnie z errorCode) albo np. abortowanie niechcianego requesta, np z jakimś okienkiem
+  route.continue - nadpisane requestu, np zmiana headera
+  route.fallback - jak continue, ale działa przed innymi routami
+  route.fetch - wpierw zaciąga response, a potem można go zmienić i fulfill
+  route.fulfill - zmiana responsa
+  */
+
   await page.route('https://reqres.in/api/users?page=2', route => {
     route.fulfill({
       status: 200,
