@@ -85,6 +85,9 @@ test('logged in', async ({page}) => {
     // await page.locator('#password').fill('SuperSecretPassword!')
     // await page.getByRole('button', {name: ' Login'}).click()
     // await page.context().storageState({ path: 'storageState.json' });
+    //   page.setExtraHTTPHeaders({
+    'Authorization': 'token'
+  })
 })
 
 test.only('Mocking a user list response', async ({ page }) => {
