@@ -8,14 +8,21 @@ interface TestReport {
     errors: string[];
   }
 
+type ReporterOptions = {
+    reportFileName?: string;
+}
+
 class MyReporter implements Reporter {
-     private results: TestReport[] = [];
-    constructor(options: { customOptions?: string } = {}) {
-        console.log(`my-reporter setup with customOption set to ${options.customOptions}`);
+    private results: TestReport[] = [];
+    private reportFileName: string;
+    constructor(options: ReporterOptions = {}) {
+        console.log(`my-reporter setup with file set to ${options.reportFileName}.json`);
+        this.reportFileName = options.reportFileName;
     }
 
     onBegin(config: FullConfig, suite: Suite): void {
-       console.log(config.workers)
+    //    config.workers = 3
+    //    console.log(config.workers)
     }
 
     onTestBegin(test: TestCase, result: TestResult): void {
@@ -33,10 +40,11 @@ class MyReporter implements Reporter {
           this.results.push(testResult);
       
           console.log(`Test zakończony: ${test.title} - ${result.status}`);
+          console.log('-------------------------------------------------')
     }
 
     onEnd(result: FullResult): Promise<{ status?: FullResult['status']; } | undefined | void> | void {
-        const filePath = `./test-results/custom-report.json`;
+        const filePath = `./test-results/${this.reportFileName}.json`;
         fs.writeFileSync(filePath, JSON.stringify(this.results, null, 2), 'utf-8');
         console.log(`Zapisano wyniki testów do ${filePath}`);
     }
